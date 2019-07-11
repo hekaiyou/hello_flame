@@ -33,7 +33,7 @@ class BoxGame extends Game {
   }
 
   void update(double t) {
-    // TODO: 实现更新
+    // 实现更新
   }
 
   void resize(Size size) {

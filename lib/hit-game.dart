@@ -1,11 +1,13 @@
 import 'dart:ui';
-import 'package:flame/game.dart';
-import 'package:flame/flame.dart';
-import 'package:hello_flame/components/fly.dart';
 import 'dart:math';
 import 'package:flutter/gestures.dart';
 
+import 'package:flame/game.dart';
+import 'package:flame/flame.dart';
+
+import 'package:hello_flame/components/fly.dart';
 import 'package:hello_flame/components/backyard.dart';
+import 'package:hello_flame/components/mosquito-fly.dart';
 
 class HitGame extends Game {
   Size screenSize;
@@ -30,7 +32,7 @@ class HitGame extends Game {
   void produceFly() {
     double x = rnd.nextDouble() * (screenSize.width - tileSize);
     double y = rnd.nextDouble() * (screenSize.height - tileSize);
-    enemy.add(Fly(this, x, y));
+    enemy.add(MosquitoFly(this, x, y));
   }
 
   void render(Canvas canvas) {
