@@ -7,3 +7,4 @@ Flutter游戏框架Flame的Hello World游戏应用系列教程
  - [《Flutter游戏：垃圾里会生蚊子》](https://hekaiyou.blog.csdn.net/article/details/95495574)
  - [《Flutter游戏：蚊子飞来飞去》](https://hekaiyou.blog.csdn.net/article/details/95940879)
  - [《Flutter游戏：启动时的欢迎页》](https://hekaiyou.blog.csdn.net/article/details/96916442)
+ - [《Flutter游戏：简单规则与结束页》](https://hekaiyou.blog.csdn.net/article/details/99103768)

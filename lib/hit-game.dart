@@ -12,9 +12,11 @@ import 'package:hello_flame/components/agile-fly.dart';
 import 'package:hello_flame/components/drooler-fly.dart';
 import 'package:hello_flame/components/hungry-fly.dart';
 import 'package:hello_flame/components/macho-fly.dart';
+import 'package:hello_flame/controllers/producer.dart';
 import 'package:hello_flame/view.dart';
 import 'package:hello_flame/views/home-view.dart';
 import 'package:hello_flame/components/start-button.dart';
+import 'package:hello_flame/views/lost-view.dart';
 
 class HitGame extends Game {
   Size screenSize;
@@ -25,6 +27,8 @@ class HitGame extends Game {
   View activeView = View.home;
   HomeView homeView;
   StartButton startButton;
+  LostView lostView;
+  FlyProducer produce;
 
   HitGame() {
     initialize();
@@ -36,9 +40,12 @@ class HitGame extends Game {
     resize(await Flame.util.initialDimensions());
 
     background = Backyard(this);
+
+    produce = FlyProducer(this);
+
     homeView = HomeView(this);
     startButton = StartButton(this);
-    produceFly();
+    lostView = LostView(this);
   }
 
   void produceFly() {
@@ -67,12 +74,14 @@ class HitGame extends Game {
     background.render(canvas);
     enemy.forEach((Fly fly) => fly.render(canvas));
     if (activeView == View.home) homeView.render(canvas);
+    if (activeView == View.lost) lostView.render(canvas);
     if (activeView == View.home || activeView == View.lost) {
       startButton.render(canvas);
     }
   }
 
   void update(double t) {
+    produce.update(t);
     enemy.forEach((Fly fly) => fly.update(t));
     enemy.removeWhere((Fly fly) => fly.isOffScreen);
   }
@@ -93,12 +102,19 @@ class HitGame extends Game {
     }
 
     if (!isHandled) {
+      bool didHitAFly = false;
+
       enemy.forEach((Fly fly) {
         if (fly.flyRect.contains(d.globalPosition)) {
           fly.onTapDown();
           isHandled = true;
+          didHitAFly = true;
         }
       });
+
+      if (activeView == View.playing && !didHitAFly) {
+        activeView = View.lost;
+      }
     }
   }
 }
